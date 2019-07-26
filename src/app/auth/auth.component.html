@@ -1,0 +1,9 @@
+<li *ngIf="loading" class="nav-item">
+    <a class="spinner-border spinner-border-sm"></a>
+</li>
+<li *ngIf="!user && !loading" class="nav-item">
+    <button class="btn btn-dark" (click)="signInWithGoogle()">Sign In</button>
+</li>
+<li *ngIf="user && !loading" class="nav-item">
+    <button class="btn btn-dark" (click)="signOut()">Sign Out</button>
+</li>

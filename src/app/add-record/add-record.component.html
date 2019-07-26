@@ -1,0 +1,69 @@
+<div class="col-md-3">
+  <br>
+  <h4>Add new record to the store.</h4>
+  <br>
+  <form [formGroup]="form">
+    <input type="text" class="form-control" [(ngModel)]="discogsUrl" placeholder="Enter a Discogs link"
+      (input)="extractRecordInfo()" formControlName="discogsUrl"
+      [ngClass]="{ 'is-invalid': form.controls.discogsUrl.errors && discogsUrl }" />
+    <div *ngIf="form.controls.discogsUrl.errors && discogsUrl" class="invalid-feedback">
+      <div>Must be a valid Discogs record URL</div>
+    </div>
+  </form>
+  <br>
+  <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+  <div *ngIf="record">
+    <div class="card" style="width: 25rem;">
+      <img class="card-img-top" [src]="record.images[0].uri">
+      <div class="card-body">
+        <h5 class="card-title">{{record.title}}</h5>
+        <hr>
+        <p class="card-text"><strong>Artist:</strong> {{record.artist.name}}</p>
+        <p class="card-text"><strong>Label:</strong> {{record.label.name}}</p>
+        <hr>
+        <p class="card-text"><strong>Tracklist:</strong></p>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div formArrayName="previews">
+            <div class="card-text" *ngFor="let track of record.tracklist; let i = index">
+              <div>{{i+1}}. {{track.title}}
+                <input type="file" accept=".mp3" class="form-control-file" formControlName="{{i}}" (change)="appendTrackPreview($event, i)"
+                   [ngClass]="{ 'is-invalid': previewFileIsInvalid(i) }">
+                <div *ngIf="previewsFormControls.value[i]" class="invalid-feedback">
+                  <div>Must be a mp3 file</div>
+                </div>
+                <div *ngIf="!previewsFormControls.value[i]" class="invalid-feedback">
+                  <div>Preview is required</div>
+                </div>
+                <br>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="card-text form-group">
+            <label for="price"><strong>Price:</strong></label>
+            <input type="text" id="price" class="form-control" placeholder="Enter price"
+              formControlName="price" [ngClass]="{ 'is-invalid': priceIsInvalid() }">
+            <div *ngIf="form.controls.price.value" class="invalid-feedback">
+              <div>Must be a positive number</div>
+            </div>
+            <div *ngIf="!form.controls.price.value" class="invalid-feedback">
+              <div>Price is required</div>
+            </div>
+          </div>
+          <div class="card-text form-group">
+            <label for="quantity"><strong>Quantity:</strong></label>
+            <input type="text" id="quantity" class="form-control"
+              placeholder="Enter quantity" formControlName="quantity" [ngClass]="{ 'is-invalid': quantityIsInvalid() }">
+            <div *ngIf="form.controls.quantity.value" class="invalid-feedback">
+              <div>Must be a positive number</div>
+            </div>
+            <div *ngIf="!form.controls.quantity.value" class="invalid-feedback">
+              <div>Quantity is required</div>
+            </div>
+          </div>
+          <button class="btn btn-dark">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="card mt-4">
+    <div class="card-body">
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="newsfeed">
+            <li *ngFor="let record of newsfeed.mostPopular">{{record.artist.name}} - {{record.title}}
+                [{{record.label.name}}]</li>
+        </ul>
+    </div>
+</div>
