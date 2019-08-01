@@ -1,9 +1,53 @@
-<div class="card mt-4">
-    <div class="card-body">
-        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
-        <ul *ngIf="newsfeed">
-            <li *ngFor="let record of newsfeed.mostPopular">{{record.artist.name}} - {{record.title}}
-                [{{record.label.name}}]</li>
-        </ul>
+<div *ngIf="newsfeed" class="container">
+<br>
+<h3 *ngIf="isAuthenticated">Recommended for you</h3>
+<div *ngIf="isAuthenticated" class="row justify-content-center">
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <div *ngFor="let record of newsfeed.recommended" class="card col-md-2 m-2">
+        <img class="card-img-top" [src]="record.image" alt="">
+        <div class="card-body d-flex flex-column">
+            <strong class="card-title">{{record.title}}</strong>
+            <hr width="100%">
+            <p class="card-text"><strong>Artist:</strong> {{record.artist.name}}</p>
+            <p class="card-text"><strong>Label:</strong> {{record.label.name}}</p>
+            <button class="btn btn-dark mt-auto" (click)="addToCart(record.id)"><i class="fas fa-shopping-cart"></i>
+                ${{record.price.toFixed(2)}}</button>
+        </div>
     </div>
+</div>
+<br *ngIf="isAuthenticated">
+<br *ngIf="isAuthenticated">
+
+<div class="justify-content-center"><h3>Most popular</h3></div>
+<div class="row justify-content-center">
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <div *ngFor="let record of newsfeed.mostPopular" class="card col-md-2 m-2">
+        <img class="card-img-top" [src]="record.image" alt="">
+        <div class="card-body d-flex flex-column">
+                <strong class="card-title">{{record.title}}</strong>
+            <hr width="100%">
+            <p class="card-text"><strong>Artist:</strong> {{record.artist.name}}</p>
+            <p class="card-text"><strong>Label:</strong> {{record.label.name}}</p>
+            <button class="btn btn-dark mt-auto" (click)="addToCart(record.id)"><i class="fas fa-shopping-cart"></i>
+                ${{record.price.toFixed(2)}}</button>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<h3>Newest</h3>
+<div class="row justify-content-center">
+    <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+    <div *ngFor="let record of newsfeed.newest" class="card col-md-2 m-2">
+        <img class="card-img-top" [src]="record.image" alt="">
+        <div class="card-body d-flex flex-column">
+                <strong class="card-title">{{record.title}}</strong>
+            <hr width="100%">
+            <p class="card-text"><strong>Artist:</strong> {{record.artist.name}}</p>
+            <p class="card-text"><strong>Label:</strong> {{record.label.name}}</p>
+            <button class="btn btn-dark mt-auto"(click)="addToCart(record.id)"><i class="fas fa-shopping-cart"></i>
+                ${{record.price.toFixed(2)}}</button>
+        </div>
+    </div>
+</div>
 </div>

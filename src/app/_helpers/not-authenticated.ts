@@ -4,17 +4,17 @@ import { AuthService } from 'angularx-social-login';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class NotAuthenticated implements CanActivate {
     constructor(
         private router: Router
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
-        if (localStorage.getItem('token')) {
+        if (!localStorage.getItem('token')) {
             return true;
         }
-        this.router.navigate(['/auth'], { queryParams: { returnUrl: state.url } });
+        this.router.navigate(['/']);
         return false;
     }
 }

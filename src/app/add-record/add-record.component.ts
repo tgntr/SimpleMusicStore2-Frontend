@@ -103,6 +103,5 @@ export class AddRecordComponent implements OnInit {
     }
     let file = event.target.files[0];
     this.previews[index] = file;
-    console.log(this.previews);
   }
 }

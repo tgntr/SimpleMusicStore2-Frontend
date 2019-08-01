@@ -4,6 +4,9 @@ import { AuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { Observable, BehaviorSubject } from 'rxjs';
+import {Location} from '@angular/common';
+import { AuthenticationService } from '../_services/authentication.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -13,27 +16,24 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class AuthComponent implements OnInit {
   loading = false;
+  returnUrl: string;
 
-  user: SocialUser;
+  constructor(
+    private location: Location, 
+    private authenticationService: AuthenticationService,
+    private route:ActivatedRoute,
+    private router: Router) { 
 
-  constructor(private authService: AuthService) {
-  }
+      this.returnUrl = this.route.snapshot.queryParamMap.get("returnUrl") || '/';
+      console.log(this.returnUrl);
+    }
 
-  ngOnInit() {
-    this.loading = true;
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      console.log(user);
-      this.loading = false;
-    });
-  }
+  ngOnInit() { }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID)
-  }
-
-  signOut(): void {
-    this.authService.signOut();
+    this.authenticationService.authenticateWithGoogle().then(() => {
+      this.router.navigate([this.returnUrl])
+    });
   }
 
 

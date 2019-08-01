@@ -1,0 +1,113 @@
+<div *ngIf="loading" class="nav-item">
+    <a class="spinner-border spinner-border-sm"></a>
+</div>
+<div *ngIf="items" class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">Record</th>
+                            <th scope="col">Price</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col" class="text-right">Total</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of items, let i = index">
+                            <td><img [src]="item.image" width="100px" height="100px" /> </td>
+                            <td>{{item.title}}</td>
+                            <td>${{item.price.toFixed(2)}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-sm"><i class="fa fa-minus" aria-hidden="true"
+                                        (click)="decreaseQuantity(i)"></i></button> {{item.quantity}}
+                                <button class="btn btn-sm"><i class="fa fa-plus" aria-hidden="true"
+                                        (click)="increaseQuantity(i)"></i></button>
+                            </td>
+                            <td class="text-right">${{(item.price * item.quantity).toFixed(2)}}</td>
+                            <td class="text-right"><button class="btn btn-sm btn-danger" (click)="removeFromCart(i)"><i
+                                        class="fa fa-trash"></i> </button> </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <h4><strong>TOTAL</strong></h4>
+                            </td>
+                            <td class="text-right">
+                                <h4><strong>${{totalPrice.toFixed(2)}}</strong></h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12  col-md-6">
+                    <button class="btn btn-lg btn-block btn-light text-uppercase" (click)="backToPreviousPage()"> <i
+                            class="fa fa-arrow-left" aria-hidden="true"></i> BACK TO STORE</button>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <button class="btn btn-lg btn-block btn-dark" (click)="checkout()">CHECKOUT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div *ngIf="isInCheckout">
+        <h2>Select address</h2>
+        <br>
+        <form [formGroup]="selectAddressForm" (ngSubmit)="onSubmit()">
+            <div *ngFor="let address of addresses" class="radio">
+                <label><input formControlName="address" type="radio" [value]="address.id">{{address.street}},
+                    {{address.city}}, {{address.country}}</label>
+            </div>
+            <div class="radio">
+                <label class="font-italic"><input formControlName="address" type="radio" [value]="0">Add new
+                    address</label>
+            </div>
+            <div *ngIf="selectAddressForm.get('address').value === 0" class="row">
+                <form [formGroup]="newAddressForm">
+                    <div class="form-group col-xs-6">
+                        <label for="country"><strong>Country:</strong></label>
+                        <input type="text" id="country" class="form-control" placeholder="Enter country"
+                            formControlName="country"
+                            [ngClass]="{ 'is-invalid': newAddressForm.get('country').errors && submitted }">
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div class="text-danger">Country is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label for="city"><strong>City:</strong></label>
+                        <input type="text" id="city" class="form-control" placeholder="Enter city"
+                            formControlName="city"
+                            [ngClass]="{ 'is-invalid': newAddressForm.get('city').errors && submitted }">
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div class="text-danger">City is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label for="country"><strong>Street:</strong></label>
+                        <input type="text" id="street" class="form-control" placeholder="Enter street"
+                            formControlName="street"
+                            [ngClass]="{ 'is-invalid': newAddressForm.get('street').errors && submitted }">
+                        <div *ngIf="submitted" class="invalid-feedback">
+                            <div class="text-danger">Street is required</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div *ngIf="submitted && selectAddressForm.get('address').errors">
+                <p class="text-danger">Select an address</p>
+            </div>
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </form>
+    </div>
+</div>

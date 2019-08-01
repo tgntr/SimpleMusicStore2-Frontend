@@ -1,12 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="btn btn-dark navbar-brand" [routerLink]="['/']">SimpleMusicStore</button>
+    <button class="btn btn-dark navbar-brand text-uppercase" [routerLink]="['/']">Simple Music Store</button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <button class="btn btn-dark" [routerLink]="['/add-record']">Add record</button>
+            <li *ngIf="isAuthenticated" class="nav-item">
+                <button class="btn btn-dark text-uppercase" [routerLink]="['/add-record']">Add record</button>
             </li>
         </ul>
         <ul class="navbar-nav navbar-right">
+            <li  *ngIf="isAuthenticated" class="nav-item">
+                <button class="btn btn-dark mt-auto" [routerLink]="['/shopping-cart']"><i
+                        class="fas fa-shopping-cart"></i></button>
+            </li>
             <li class="nav-item">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -16,10 +20,15 @@
                     <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
                 </div>
             </li>
-            <li class="nav-item">
-                <button class="btn btn-dark"><i class="fas fa-shopping-cart"></i></button>
+            <li *ngIf="authLoading" class="nav-item">
+                    <a class="spinner-border spinner-border-sm"></a>
+                </li>
+            <li *ngIf="isAuthenticated && !authLoading"class="nav-item">
+                    <button class="btn btn-dark mt-auto text-uppercase" (click)="signOut()">Sign Out</button>
             </li>
-            <app-auth></app-auth>
+            <li *ngIf="!isAuthenticated && !authLoading"class="nav-item">
+                    <button class="btn btn-dark mt-auto text-uppercase" [routerLink]="['/auth']">Sign In</button>
+            </li>
         </ul>
     </div>
 </nav>
