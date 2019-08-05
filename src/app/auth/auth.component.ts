@@ -19,13 +19,11 @@ export class AuthComponent implements OnInit {
   returnUrl: string;
 
   constructor(
-    private location: Location, 
     private authenticationService: AuthenticationService,
     private route:ActivatedRoute,
     private router: Router) { 
 
       this.returnUrl = this.route.snapshot.queryParamMap.get("returnUrl") || '/';
-      console.log(this.returnUrl);
     }
 
   ngOnInit() { }

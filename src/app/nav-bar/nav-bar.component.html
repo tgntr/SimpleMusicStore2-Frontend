@@ -7,7 +7,7 @@
             </li>
         </ul>
         <ul class="navbar-nav navbar-right">
-            <li  *ngIf="isAuthenticated" class="nav-item">
+            <li *ngIf="isAuthenticated" class="nav-item">
                 <button class="btn btn-dark mt-auto" [routerLink]="['/shopping-cart']"><i
                         class="fas fa-shopping-cart"></i></button>
             </li>
@@ -21,13 +21,24 @@
                 </div>
             </li>
             <li *ngIf="authLoading" class="nav-item">
-                    <a class="spinner-border spinner-border-sm"></a>
-                </li>
-            <li *ngIf="isAuthenticated && !authLoading"class="nav-item">
-                    <button class="btn btn-dark mt-auto text-uppercase" (click)="signOut()">Sign Out</button>
+                <a class="spinner-border spinner-border-sm"></a>
             </li>
-            <li *ngIf="!isAuthenticated && !authLoading"class="nav-item">
-                    <button class="btn btn-dark mt-auto text-uppercase" [routerLink]="['/auth']">Sign In</button>
+            <li *ngIf="!isAuthenticated && !authLoading" class="nav-item">
+                <button class="btn btn-dark mt-auto text-uppercase" [routerLink]="['/auth']">Sign In</button>
+            </li>
+            <li *ngIf="isAuthenticated && !authLoading" class="nav-item">
+                
+
+                <div class="col">
+                        <div ngbDropdown class="d-inline-block">
+                            <button class="btn btn-dark text-uppercase" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-user"></i> {{currentEmail}}</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button class="text-uppercase" ngbDropdownItem [routerLink]="['/my-profile']">My Profile</button>
+                                <div class="dropdown-divider"></div>
+                                <button class="text-uppercase" ngbDropdownItem  (click)="signOut()">Sign Out</button>
+                            </div>
+                        </div>
+                    </div>
             </li>
         </ul>
     </div>

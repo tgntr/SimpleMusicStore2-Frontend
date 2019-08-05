@@ -46,7 +46,11 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit() {
     this.loading=true;
     this.shoppingCartService.getCart().subscribe(cart=> {
-      this.items = cart;
+      console.log(cart);
+      if (cart.length > 0) {
+        this.items = cart;
+      }
+      
       this.loading = false;
     });
   }

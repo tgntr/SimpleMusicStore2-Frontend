@@ -1,7 +1,10 @@
-<div *ngIf="loading" class="nav-item">
-    <a class="spinner-border spinner-border-sm"></a>
+<div *ngIf="!items || items.length === 0">
+    <br>
+    <h3>CART IS EMPTY</h3>
+    <button class="btn btn-lg btn-dark text-uppercase " (click)="backToPreviousPage()"> <i class="fa fa-arrow-left"
+            aria-hidden="true"></i> BACK TO STORE</button>
 </div>
-<div *ngIf="items" class="container mb-4">
+<div *ngIf="items && items.length>0" class="container mb-4">
     <div class="row">
         <div class="col-12">
             <div class="table-responsive">

@@ -11,13 +11,13 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class NavBarComponent implements OnInit {
   authLoading = false;
   isAuthenticated = false;
+  currentEmail: string;
   constructor(private authService: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
     this.authLoading = true;
-    this.authService.isAuthenticated().subscribe(isAuthenticated => {
-      this.isAuthenticated = isAuthenticated;
-    });
+    this.authService.isAuthenticated().subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
+    this.authService.userEmail.subscribe(name=>this.currentEmail = name);
     this.authLoading = false;
   };
 

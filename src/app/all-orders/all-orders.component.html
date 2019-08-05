@@ -1,0 +1,10 @@
+<ngb-accordion [closeOthers]="true" activeIds="static-1">
+    <ngb-panel *ngFor="let order of orders">
+      <ng-template ngbPanelTitle>
+        <span class="text-secondary text-uppercase">Order &#8470;{{order.id}}, Total: ${{order.totalPrice.toFixed(2)}}, Ordered on {{formatDate(order.date)}} <i class="fa fa-caret-down" aria-hidden="true"></i></span>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <app-order [id]="order.id"></app-order>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>

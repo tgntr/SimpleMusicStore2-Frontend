@@ -15,6 +15,10 @@ import { AddRecordComponent } from './add-record/add-record.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrderComponent } from './order/order.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
+import { AllOrdersComponent } from './all-orders/all-orders.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -25,7 +29,9 @@ import { OrderComponent } from './order/order.component';
     NewsfeedComponent,
     AddRecordComponent,
     ShoppingCartComponent,
-    OrderComponent
+    OrderComponent,
+    MyProfileComponent,
+    AllOrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,8 @@ import { OrderComponent } from './order/order.component';
     SocialLoginModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     {
@@ -42,7 +49,7 @@ import { OrderComponent } from './order/order.component';
     },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    AuthService
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

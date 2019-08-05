@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderService } from '../_services/order.service';
 import { OrderView } from '../_models/orderView';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-order',
@@ -9,15 +10,21 @@ import { OrderView } from '../_models/orderView';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  id: number;
+  @Input() id: number;
   order: OrderView;
 
-  constructor(private activatedRoute: ActivatedRoute, private orderService: OrderService) { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.orderService.getOrderDetails(+params.get('id')).subscribe(order=>this.order=order);
-    });
+    let parameterId = +this.route.snapshot.paramMap.get('id');
+    if (!this.id && !parameterId) {
+      this.router.navigate(['/']);
+    }
+    this.orderService.getOrderDetails(parameterId || this.id).subscribe(order=>this.order=order);
+  }
+
+  formatDate(date: Date) {
+    return this.datePipe.transform(date, 'MMMM d, y, h:mm:ss a')
   }
 }
 

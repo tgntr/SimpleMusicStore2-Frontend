@@ -10,7 +10,6 @@
                             <th scope="col">Price</th>
                             <th scope="col" class="text-center">Quantity</th>
                             <th scope="col" class="text-right">Total</th>
-                            <th> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,20 +22,39 @@
                             </td>
                             <td class="text-right">${{(item.price * item.quantity).toFixed(2)}}</td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <h4><strong>TOTAL</strong></h4>
-                            </td>
-                            <td class="text-right">
-                                <h4><strong>${{order.totalPrice.toFixed(2)}}</strong></h4>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
+                <tr>
+                    <td><h4><strong>TOTAL:</strong></h4></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        <h4><strong>${{order.totalPrice.toFixed(2)}}</strong></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h4><strong>ORDER DATE:</strong></h4></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        <h4><strong>{{formatDate(order.date)}}</strong></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h4><strong>DELIVERY ADDRESS:</strong></h4></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        <h4><strong>{{order.deliveryAddress.street}}, {{order.deliveryAddress.city}}, {{order.deliveryAddress.country}}</strong></h4>
+                    </td>
+                </tr>
             </div>
         </div>
     </div>
