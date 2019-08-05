@@ -2,12 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { CartItem } from '../_models/cartItem';
 
 @Injectable({ providedIn: 'root' })
 export class ShoppingCartService {
-    constructor(private http: HttpClient) { }
+    public cart: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>(null);
+    public cart$: Observable<CartItem[]> = this.cart.asObservable();
+
+    constructor(private http: HttpClient) {
+     }
 
     addToCart(recordId: number): Observable<any> {
         return this.http.get(`${environment.url}/order/addtocart/${recordId}`);

@@ -19,6 +19,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { AllOrdersComponent } from './all-orders/all-orders.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DatePipe } from '@angular/common';
     ShoppingCartComponent,
     OrderComponent,
     MyProfileComponent,
-    AllOrdersComponent
+    AllOrdersComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

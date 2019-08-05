@@ -16,7 +16,6 @@ export class AllOrdersComponent implements OnInit {
     debugger;
     this.orderService.getAllByUser().subscribe(orders => {
       this.orders = orders;
-      console.log(orders);
     });
   }
 

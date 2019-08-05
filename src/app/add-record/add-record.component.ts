@@ -4,13 +4,14 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { RecordService } from '../_services/record.service';
 import { validateThatFileIsMP3 } from '../_helpers/custom-validators';
 import { Router } from '@angular/router';
+import { BaseComponent } from '../_helpers/base.component';
 
 @Component({
   selector: 'app-add-record',
   templateUrl: './add-record.component.html',
   styleUrls: ['./add-record.component.css']
 })
-export class AddRecordComponent implements OnInit {
+export class AddRecordComponent extends BaseComponent implements OnInit {
 
   record: NewRecord;
   form: FormGroup;
@@ -20,6 +21,7 @@ export class AddRecordComponent implements OnInit {
   previews: File[] = [];
 
   constructor(private formBuilder: FormBuilder, private recordService: RecordService, private router: Router) {
+    super();
     this.form = this.formBuilder.group({
       discogsUrl: ['', [Validators.required, Validators.pattern("https:\/\/www\.discogs\.com\/([^\/]+\/)?((release)|(master))\/[0-9]+([^\/]+)?")]],
       price: ['', [Validators.required, Validators.min(1), Validators.pattern("[0-9]+")]],

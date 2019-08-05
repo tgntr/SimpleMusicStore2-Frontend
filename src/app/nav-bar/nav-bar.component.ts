@@ -16,8 +16,8 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
     this.authLoading = true;
-    this.authService.isAuthenticated().subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
-    this.authService.userEmail.subscribe(name=>this.currentEmail = name);
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => this.isAuthenticated = isAuthenticated);
+    this.authService.userEmail$.subscribe(name=>this.currentEmail = name);
     this.authLoading = false;
   };
 
