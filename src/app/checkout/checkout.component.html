@@ -1,4 +1,8 @@
-<div *ngIf="isInCheckout">
+<div *ngIf="completed">
+    <h3>Your order has been successful!
+        Thank you for shopping at Simple Music Store!</h3>
+</div>
+<div *ngIf="!completed">
     <h2>Select address</h2>
     <br>
     <form [formGroup]="selectAddressForm" (ngSubmit)="onSubmit()">
@@ -43,6 +47,6 @@
         <div *ngIf="submitted && selectAddressForm.get('address').errors">
             <p class="text-danger">Select an address</p>
         </div>
-        <button type="submit" class="btn btn-dark">Submit</button>
+        <button type="submit" class="btn btn-dark">Complete</button>
     </form>
 </div>

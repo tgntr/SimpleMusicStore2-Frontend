@@ -1,61 +1,66 @@
-<div *ngIf="order" class="container mb-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col"> </th>
-                            <th scope="col">Record</th>
-                            <th scope="col">Price</th>
-                            <th scope="col" class="text-center">Quantity</th>
-                            <th scope="col" class="text-right">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of order.items, let i = index">
-                            <td><img [src]="item.image" width="100px" height="100px" /> </td>
-                            <td>{{item.title}}</td>
-                            <td>${{item.price.toFixed(2)}}</td>
-                            <td class="text-center">
-                                {{item.quantity}}
-                            </td>
-                            <td class="text-right">${{(item.price * item.quantity).toFixed(2)}}</td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-                <tr>
-                    <td><h4><strong>TOTAL:</strong></h4></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-right">
-                        <h4><strong>${{order.totalPrice.toFixed(2)}}</strong></h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td><h4><strong>ORDER DATE:</strong></h4></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-right">
-                        <h4><strong>{{formatDate(order.date)}}</strong></h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td><h4><strong>DELIVERY ADDRESS:</strong></h4></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td class="text-right">
-                        <h4><strong>{{order.deliveryAddress.street}}, {{order.deliveryAddress.city}}, {{order.deliveryAddress.country}}</strong></h4>
-                    </td>
-                </tr>
-            </div>
+<div *ngIf="order" class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">Record</th>
+                        <th scope="col">Price</th>
+                        <th scope="col" class="text-center">Quantity</th>
+                        <th scope="col" class="text-right">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of order.items, let i = index">
+                        <td><img [src]="item.image" width="100px" height="100px" /> </td>
+                        <td>{{item.title}}</td>
+                        <td>${{item.price.toFixed(2)}}</td>
+                        <td class="text-center">
+                            {{item.quantity}}
+                        </td>
+                        <td class="text-right">${{(item.price * item.quantity).toFixed(2)}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <tr>
+                <td>
+                    <h4><strong>TOTAL:</strong></h4>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    <h4><strong>${{order.totalPrice.toFixed(2)}}</strong></h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4><strong>ORDER DATE:</strong></h4>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    <h4><strong>{{formatDate(order.date)}}</strong></h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4><strong>DELIVERY ADDRESS:</strong></h4>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-right">
+                    <h4><strong>{{order.deliveryAddress.street}}, {{order.deliveryAddress.city}},
+                            {{order.deliveryAddress.country}}</strong></h4>
+                </td>
+            </tr>
         </div>
     </div>
 </div>

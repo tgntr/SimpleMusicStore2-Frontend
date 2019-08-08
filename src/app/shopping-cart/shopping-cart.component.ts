@@ -3,7 +3,7 @@ import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { CartItem } from '../_models/cartItem';
 import { subscribeOn, takeUntil } from 'rxjs/operators';
 import { HttpBackend } from '@angular/common/http';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { AddressDetails } from '../_models/address/addressDetails';
 import { AddressService } from '../_services/address.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,35 +27,31 @@ export class ShoppingCartComponent extends BaseComponent implements OnInit {
   submitted = false;
 
   constructor(
-    private shoppingCartService: ShoppingCartService, 
-    private location: Location, 
-    private addressService: AddressService,
+    private shoppingCartService: ShoppingCartService,
     private formBuilder: FormBuilder,
     private router: Router) {
-      super();
 
-      this.selectAddressForm = this.formBuilder.group({
-        address: ['', Validators.required]
-      });
+    super();
 
-     this.newAddressForm = this.formBuilder.group({
+    this.selectAddressForm = this.formBuilder.group({
+      address: ['', Validators.required]
+    });
+
+    this.newAddressForm = this.formBuilder.group({
       country: ['', Validators.required],
       city: ['', Validators.required],
       street: ['', Validators.required]
-     });
-    }
+    });
+  }
 
   ngOnInit() {
-    debugger;
-    this.loading=true;
-    this.shoppingCartService.getCart().pipe(takeUntil(this.unsubscribe)).subscribe(cart=> {
+    this.shoppingCartService.cart$.subscribe(cart => {
+      this.items = cart;
+      this.loading = false;
+    });
+    this.loading = true;
+    this.shoppingCartService.getCart().pipe(takeUntil(this.unsubscribe)).subscribe(cart => {
       this.shoppingCartService.cart.next(cart);
-      this.shoppingCartService.cart$.subscribe(cart=> {
-        if (cart.length > 0) {
-          this.items = cart;
-        }
-        this.loading = false;
-      });
     })
   }
 
@@ -63,16 +59,12 @@ export class ShoppingCartComponent extends BaseComponent implements OnInit {
     if (!this.items || this.items.length === 0) {
       return 0;
     } else {
-      return this.items.reduce((prev, curr) => prev + (curr.price*curr.quantity), 0);
+      return this.items.reduce((prev, curr) => prev + (curr.price * curr.quantity), 0);
     }
-  }
-  
-  backToPreviousPage() {
-    this.location.back();
   }
 
   decreaseQuantity(index) {
-    this.shoppingCartService.decreaseQuantity(this.items[index].id).pipe(takeUntil(this.unsubscribe)).subscribe(()=> {
+    this.shoppingCartService.decreaseQuantity(this.items[index].id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       let quantity = this.items[index].quantity;
       if (quantity === 1) {
         this.items.splice(index, 1);
@@ -84,8 +76,8 @@ export class ShoppingCartComponent extends BaseComponent implements OnInit {
   }
 
   increaseQuantity(index) {
-    this.shoppingCartService.increaseQuantity(this.items[index].id).pipe(takeUntil(this.unsubscribe)).subscribe(()=> {
-      this.items[index].quantity ++;
+    this.shoppingCartService.increaseQuantity(this.items[index].id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+      this.items[index].quantity++;
       this.shoppingCartService.cart.next(this.items);
     });
   }
@@ -101,33 +93,6 @@ export class ShoppingCartComponent extends BaseComponent implements OnInit {
     if (!this.items) {
       return;
     }
-    this.addressService.getAllByCurrentUser().pipe(takeUntil(this.unsubscribe)).subscribe(addresses => {
-      this.addresses = addresses;
-      this.isInCheckout = true;
-    });
-  }
-
-  async onSubmit() {
-    this.submitted = true;
-    if (this.selectAddressForm.invalid || (this.selectAddressForm.get('address').value === 0 && this.newAddressForm.invalid)) {
-      return;
-    }
-    if (this.selectAddressForm.get('address').value === 0) {
-      var newAddress = new NewAddress();
-      newAddress.country = this.newAddressForm.get('country').value;
-      newAddress.city = this.newAddressForm.get('city').value;
-      newAddress.street = this.newAddressForm.get('street').value;
-      await this.addressService.add(newAddress).pipe(takeUntil(this.unsubscribe)).toPromise().then(async () => {
-        await this.addressService.getAllByCurrentUser().pipe(takeUntil(this.unsubscribe)).toPromise().then(addresses=> {
-          this.selectedAddress = addresses[addresses.length-1].id;
-        });
-      });
-    } else {
-      this.selectedAddress = this.selectAddressForm.get('address').value;
-    }
-    this.shoppingCartService.completeOrder(this.selectedAddress).pipe(takeUntil(this.unsubscribe)).subscribe(() => { 
-      this.shoppingCartService.cart.next(null);
-      this.router.navigate(['/']);
-    })
+    this.router.navigate(['/checkout']);
   }
 }

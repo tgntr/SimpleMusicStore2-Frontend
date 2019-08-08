@@ -5,6 +5,7 @@ import { RecordService } from '../_services/record.service';
 import { validateThatFileIsMP3 } from '../_helpers/custom-validators';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../_helpers/base.component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-record',
@@ -42,7 +43,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     }
 
     this.loading = true;
-    this.recordService.extractRecordInformation(this.discogsUrl).subscribe(recordInfo => {
+    this.recordService.extractRecordInformation(this.discogsUrl).pipe(takeUntil(this.unsubscribe)).subscribe(recordInfo => {
       this.record = recordInfo;
       this.record.price = null;
       this.record.quantity = null;
@@ -82,7 +83,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.record.price = this.form.controls.price.value;
     this.record.quantity = this.form.controls.quantity.value;
     console.log(this.record);
-    this.recordService.addRecord(this.record).subscribe(()=> {
+    this.recordService.addRecord(this.record).pipe(takeUntil(this.unsubscribe)).subscribe(()=> {
       this.uploadTrackPreviews();
       this.router.navigate(['/']);
     })
@@ -95,7 +96,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.previews.forEach((preview, index) => {
       let file = new FormData();
       file.append('file', preview);
-      this.recordService.upload(file, this.record.id+this.record.tracklist[index].title).subscribe();
+      this.recordService.upload(file, this.record.id+this.record.tracklist[index].title).pipe(takeUntil(this.unsubscribe)).subscribe();
     });
   }
 

@@ -3,12 +3,10 @@ import { Subject } from 'rxjs';
 
 export class BaseComponent implements OnDestroy {
     unsubscribe = new Subject<void>();
-  
+
     ngOnDestroy(): void {
-        debugger;
+        this.unsubscribe.next();
+        this.unsubscribe.complete();
         console.log(this.unsubscribe);
-      this.unsubscribe.next();
-      this.unsubscribe.complete();
     }
-  
-  }
+}

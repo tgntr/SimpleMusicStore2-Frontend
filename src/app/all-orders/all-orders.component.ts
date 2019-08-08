@@ -2,19 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../_services/order.service';
 import { OrderDetails } from '../_models/orderDetails';
 import { DatePipe } from '@angular/common';
+import { BaseComponent } from '../_helpers/base.component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-all-orders',
   templateUrl: './all-orders.component.html',
   styleUrls: ['./all-orders.component.css']
 })
-export class AllOrdersComponent implements OnInit {
+export class AllOrdersComponent extends BaseComponent implements OnInit {
   orders: OrderDetails[];
-  constructor(private orderService: OrderService, private datePipe: DatePipe) { }
+  constructor(private orderService: OrderService, private datePipe: DatePipe) { super() }
 
   ngOnInit() {
-    debugger;
-    this.orderService.getAllByUser().subscribe(orders => {
+    this.orderService.getAllByUser().pipe(takeUntil(this.unsubscribe)).subscribe(orders => {
       this.orders = orders;
     });
   }

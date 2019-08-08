@@ -15,7 +15,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 401) {
                 debugger;
                 this.authService.signOut();
-                this.router.navigate(['/auth']);
+                this.router.navigate(['/auth'], { queryParams: { returnUrl: this.router.routerState.snapshot.url } });
                 
             }
             return throwError(err.error);
