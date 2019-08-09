@@ -10,6 +10,7 @@ import { NotAuthenticated } from './_helpers/not-authenticated';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { BrowseComponent } from './browse/browse.component';
+import { RecordDetailsComponent } from './record-details/record-details.component';
 
 const routes: Routes = [
   { path: '', component: NewsfeedComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'order', component: OrderComponent },
   { path: 'my-profile', component: MyProfileComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },
-  { path: 'browse', component: BrowseComponent }
+  { path: 'browse', component: BrowseComponent },
+  { path: 'record/:id', component: RecordDetailsComponent }
 ];
 
 @NgModule({

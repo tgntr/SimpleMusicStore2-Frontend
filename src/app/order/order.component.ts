@@ -15,14 +15,14 @@ export class OrderComponent extends BaseComponent implements OnInit {
   @Input() id: number;
   order: OrderView;
 
-  constructor(private route: ActivatedRoute, private orderService: OrderService, private router: Router, private datePipe: DatePipe) { super() }
+  constructor(private orderService: OrderService, private router: Router, private datePipe: DatePipe) { super() }
 
   ngOnInit() {
-    let parameterId = +this.route.snapshot.paramMap.get('id');
-    if (!this.id && !parameterId) {
+    
+    if (!this.id) {
       this.router.navigate(['/']);
     }
-    this.orderService.getOrderDetails(parameterId || this.id).pipe(takeUntil(this.unsubscribe)).subscribe(order=>this.order=order);
+    this.orderService.getOrderDetails(this.id).pipe(takeUntil(this.unsubscribe)).subscribe(order=>this.order=order);
   }
 
   formatDate(date: Date) {

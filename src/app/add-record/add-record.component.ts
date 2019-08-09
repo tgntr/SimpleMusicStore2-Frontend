@@ -85,7 +85,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     console.log(this.record);
     this.recordService.addRecord(this.record).pipe(takeUntil(this.unsubscribe)).subscribe(()=> {
       this.uploadTrackPreviews();
-      this.router.navigate(['/']);
+      
     })
     //todo redirect to record page after u make the component
     
@@ -96,7 +96,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.previews.forEach((preview, index) => {
       let file = new FormData();
       file.append('file', preview);
-      this.recordService.upload(file, this.record.id+this.record.tracklist[index].title).pipe(takeUntil(this.unsubscribe)).subscribe();
+      this.recordService.upload(file, this.record.id+this.record.tracklist[index].title).pipe(takeUntil(this.unsubscribe)).subscribe(()=> this.router.navigate(['/']));
     });
   }
 

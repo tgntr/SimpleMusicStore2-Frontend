@@ -6,8 +6,10 @@
         </div>
         <div class="card-body row">
             <div *ngFor="let record of newsfeed.recommended" class="col-md-2" alt="asdad">
-                <img [src]="record.image" width="150px" height="150px">
-                <div class="text-truncate font-weight-bold">{{record.title}}</div>
+                <a [routerLink]="['/record', record.id]">
+                    <img [src]="record.image" width="150px" height="150px">
+                    <div class="text-truncate font-weight-bold text-dark">{{record.title}}</div>
+                </a>
                 <div class="text-truncate font-weight-normal">{{record.artist.name}}</div>
                 <div class="text-truncate font-italic">{{record.label.name}}</div>
                 <app-add-to-cart [record]="record"></app-add-to-cart>
@@ -22,8 +24,10 @@
         </div>
         <div class="card-body row">
             <div *ngFor="let record of newsfeed.mostPopular" class="col-md-2" alt="asdad">
-                <img [src]="record.image" width="150px" height="150px">
-                <div class="text-truncate font-weight-bold">{{record.title}}</div>
+                <a [routerLink]="['/record', record.id]">
+                    <img [src]="record.image" width="150px" height="150px">
+                    <div class="text-truncate font-weight-bold text-dark">{{record.title}}</div>
+                </a>
                 <div class="text-truncate font-weight-normal">{{record.artist.name}}</div>
                 <div class="text-truncate font-italic">{{record.label.name}}</div>
                 <app-add-to-cart [record]="record"></app-add-to-cart>
@@ -38,8 +42,10 @@
         </div>
         <div class="card-body row">
             <div *ngFor="let record of newsfeed.newest" class="col-md-2" alt="asdad">
-                <img [src]="record.image" width="150px" height="150px">
-                <div class="text-truncate font-weight-bold">{{record.title}}</div>
+                <a [routerLink]="['/record', record.id]">
+                    <img [src]="record.image" width="150px" height="150px">
+                    <div class="text-truncate font-weight-bold text-dark">{{record.title}}</div>
+                </a>
                 <div class="text-truncate font-weight-normal">{{record.artist.name}}</div>
                 <div class="text-truncate font-italic">{{record.label.name}}</div>
                 <app-add-to-cart [record]="record"></app-add-to-cart>

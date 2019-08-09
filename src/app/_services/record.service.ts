@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { Newsfeed } from '../_models/newsfeed';
 import { NewRecord } from '../_models/new-record/newRecord';
+import { RecordView } from '../_models/recordView';
 
 @Injectable({ providedIn: 'root' })
 export class RecordService {
@@ -19,8 +20,10 @@ export class RecordService {
     }
 
     upload(file: FormData, fileName: string): Observable<any> {
-        debugger;
-        
         return this.http.post(`${environment.url}/preview/upload?fileName=${fileName}`, file);
+    }
+
+    getRecordDetails(id: number): Observable<RecordView> {
+        return this.http.get<RecordView>(`${environment.url}/record/details/${id}`);
     }
 }

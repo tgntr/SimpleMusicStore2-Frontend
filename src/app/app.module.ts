@@ -22,6 +22,11 @@ import { DatePipe } from '@angular/common';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { BrowseComponent } from './browse/browse.component';
 import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
+import { RecordDetailsComponent } from './record-details/record-details.component';
+import { NgxAudioPlayerModule } from 'ngx-audio-player';
+import { AudioPlayerComponent } from './audio-player/audio-player.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 @NgModule({
@@ -37,7 +42,9 @@ import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
     AllOrdersComponent,
     CheckoutComponent,
     BrowseComponent,
-    AddToCartComponent
+    AddToCartComponent,
+    RecordDetailsComponent,
+    AudioPlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,8 @@ import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NgxAudioPlayerModule,BrowserAnimationsModule
   ],
   providers: [
     {

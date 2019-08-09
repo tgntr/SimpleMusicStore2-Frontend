@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="row no-gutters">
+        <div class="col-md-3">
+            <img [src]="record.image" width="235px" height="235px">
+        </div>
+        <div class="col-md-9">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h4 class="card-title">{{record.title}}</h4>
+                    </div>
+                    <div class="col-md-5 justify-content-right">
+                        <app-add-to-cart [record]="record"></app-add-to-cart>
+                        &nbsp;
+                        <button class="btn btn-dark">Add to wishlist</button>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row">
+
+                    <div class="col-md-2 text-secondary">
+                        <div>Artist:</div>
+                        <div>Label:</div>
+                        <div>Year:</div>
+                        <div>Genre:</div>
+                        <div>Format:</div>
+                    </div>
+                    <div class="col-md-9 font-weight-bold">
+                        <div>{{record.artist.name}}</div>
+                        <div>{{record.label.name}}</div>
+                        <div>{{record.year}}</div>
+                        <div>{{record.genre}}</div>
+                        <div>{{record.format}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<app-audio-player [tracks]="record.tracklist"></app-audio-player>

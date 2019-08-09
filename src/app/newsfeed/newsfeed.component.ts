@@ -6,6 +6,7 @@ import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../_helpers/base.component';
 import { takeUntil } from 'rxjs/operators';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-newsfeed',
@@ -19,14 +20,12 @@ export class NewsfeedComponent extends BaseComponent implements OnInit {
 
   constructor(
     private newsfeedService: NewsfeedService,
-    private authService: AuthService) { super(); }
+    private authService: AuthenticationService) { super(); }
 
   ngOnInit() {
     this.loading = true;
-    this.authService.authState.pipe(takeUntil(this.unsubscribe)).subscribe((user) => {
-      if (user) {
-        this.isAuthenticated = true;
-      }
+    this.authService.isAuthenticated$.subscribe((isAuthenticated) => {
+      this.isAuthenticated = isAuthenticated;
     });
     this.newsfeedService.getNewsfeed().pipe(takeUntil(this.unsubscribe)).subscribe(newsfeed => {
       this.newsfeed = newsfeed;
