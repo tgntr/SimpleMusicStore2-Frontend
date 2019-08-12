@@ -26,4 +26,12 @@ export class RecordService {
     getRecordDetails(id: number): Observable<RecordView> {
         return this.http.get<RecordView>(`${environment.url}/record/details/${id}`);
     }
+
+    addToWishlist(id: number): Observable<any> {
+        return this.http.get(`${environment.url}/follow/addtowishlist/${id}`);
+    }
+
+    removeFromWishlist(id: number): Observable<any> {
+        return this.http.get(`${environment.url}/follow/removefromwishlist/${id}`);
+    }
 }

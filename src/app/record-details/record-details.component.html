@@ -1,4 +1,4 @@
-<div class="card">
+<div *ngIf="record"class="card">
     <div class="row no-gutters">
         <div class="col-md-3">
             <img [src]="record.image" width="235px" height="235px">
@@ -12,7 +12,8 @@
                     <div class="col-md-5 justify-content-right">
                         <app-add-to-cart [record]="record"></app-add-to-cart>
                         &nbsp;
-                        <button class="btn btn-dark">Add to wishlist</button>
+                        <button *ngIf="!record.isInWishlist"class="btn btn-dark" (click)="addToWishlist()">Add to wishlist</button>
+                        <button *ngIf="record.isInWishlist"class="btn btn-dark" (click)="removeFromWishlist()">Remove from wishlist</button>
                     </div>
 
                 </div>

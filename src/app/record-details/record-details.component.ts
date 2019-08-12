@@ -29,11 +29,12 @@ export class RecordDetailsComponent extends BaseComponent implements OnInit {
       });
   }
 
-  playPreview(track: TrackDetails){ 
-    this.selectedTrack = track;
+  addToWishlist() {
+    this.recordService.addToWishlist(this.record.id).pipe(takeUntil(this.unsubscribe)).subscribe(()=>this.record.isInWishlist=true);
   }
 
-  stopPreview() {
-    this.selectedTrack = null;
+  
+  removeFromWishlist() {
+    this.recordService.removeFromWishlist(this.record.id).pipe(takeUntil(this.unsubscribe)).subscribe(()=>this.record.isInWishlist=false);
   }
 }
