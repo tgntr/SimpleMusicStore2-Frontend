@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Newsfeed } from '../_models/newsfeed';
 import { NewRecord } from '../_models/new-record/newRecord';
 import { RecordView } from '../_models/recordView';
+import { RecordDetails } from '../_models/recordDetails';
 
 @Injectable({ providedIn: 'root' })
 export class RecordService {
@@ -25,6 +26,10 @@ export class RecordService {
 
     getRecordDetails(id: number): Observable<RecordView> {
         return this.http.get<RecordView>(`${environment.url}/record/details/${id}`);
+    }
+
+    getWishlist(): Observable<RecordDetails[]> {
+        return this.http.get<RecordDetails[]>(`${environment.url}/activity/wishlist`);
     }
 
     addToWishlist(id: number): Observable<any> {

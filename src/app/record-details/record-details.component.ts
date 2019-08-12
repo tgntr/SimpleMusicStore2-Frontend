@@ -32,7 +32,6 @@ export class RecordDetailsComponent extends BaseComponent implements OnInit {
   addToWishlist() {
     this.recordService.addToWishlist(this.record.id).pipe(takeUntil(this.unsubscribe)).subscribe(()=>this.record.isInWishlist=true);
   }
-
   
   removeFromWishlist() {
     this.recordService.removeFromWishlist(this.record.id).pipe(takeUntil(this.unsubscribe)).subscribe(()=>this.record.isInWishlist=false);

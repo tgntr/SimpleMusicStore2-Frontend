@@ -27,6 +27,7 @@ import { NgxAudioPlayerModule } from 'ngx-audio-player';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecordComponent } from './record/record.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 
 
@@ -46,7 +47,8 @@ import { RecordComponent } from './record/record.component';
     AddToCartComponent,
     RecordDetailsComponent,
     AudioPlayerComponent,
-    RecordComponent
+    RecordComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

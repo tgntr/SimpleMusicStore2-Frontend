@@ -16,6 +16,6 @@ export class OrderService {
     }
 
     getAllByUser() : Observable<OrderDetails[]>{
-        return this.http.get<OrderDetails[]>(`${environment.url}/order/findAll`);
+        return this.http.get<OrderDetails[]>(`${environment.url}/activity/orders`);
     }
 }
