@@ -28,6 +28,7 @@ import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecordComponent } from './record/record.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { SearchComponent } from './search/search.component';
 
 
 
@@ -48,7 +49,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     RecordDetailsComponent,
     AudioPlayerComponent,
     RecordComponent,
-    WishlistComponent
+    WishlistComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

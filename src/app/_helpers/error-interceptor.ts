@@ -8,15 +8,12 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authService: AuthenticationService, private router: Router) { }
+    constructor(private authService: AuthenticationService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
-                debugger;
                 this.authService.signOut();
-                this.router.navigate(['/auth'], { queryParams: { returnUrl: this.router.routerState.snapshot.url } });
-                
             }
             return throwError(err.error);
         }))

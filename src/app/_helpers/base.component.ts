@@ -7,6 +7,5 @@ export class BaseComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
-        console.log(this.unsubscribe);
     }
 }
