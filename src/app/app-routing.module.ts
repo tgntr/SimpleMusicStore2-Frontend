@@ -11,6 +11,8 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { BrowseComponent } from './browse/browse.component';
 import { RecordDetailsComponent } from './record-details/record-details.component';
+import { ArtistDetailsComponent } from './artist-details/artist-details.component';
+import { LabelDetailsComponent } from './label-details/label-details.component';
 
 const routes: Routes = [
   { path: '', component: NewsfeedComponent },
@@ -21,7 +23,9 @@ const routes: Routes = [
   { path: 'my-profile', component: MyProfileComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },
   { path: 'browse', component: BrowseComponent },
-  { path: 'record/:id', component: RecordDetailsComponent }
+  { path: 'record/:id', component: RecordDetailsComponent },
+  { path: 'artist/:id', component: ArtistDetailsComponent },
+  { path: 'label/:id', component: LabelDetailsComponent }
 ];
 
 @NgModule({

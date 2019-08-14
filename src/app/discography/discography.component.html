@@ -1,0 +1,22 @@
+<table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Record
+                </th>
+                <th scope="col">Year&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let record of records">
+                <td>
+                    <img [src]="record.image" width="5%" class="rounded">&nbsp;&nbsp;&nbsp;
+                    <a [routerLink]="['/record', record.id]" [title]="record.title" class="text-truncate text-dark">
+                        {{record.title}}
+                    </a>
+                </td>
+                <td>{{record.year}}</td>
+                <td>${{record.price.toFixed(2)}}</td>
+            </tr>
+        </tbody>
+    </table>

@@ -29,6 +29,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecordComponent } from './record/record.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { SearchComponent } from './search/search.component';
+import { ArtistDetailsComponent } from './artist-details/artist-details.component';
+import { DiscographyComponent } from './discography/discography.component';
+import { LabelDetailsComponent } from './label-details/label-details.component';
+import { FollowedArtistsComponent } from './followed-artists/followed-artists.component';
+import { FollowedLabelsComponent } from './followed-labels/followed-labels.component';
+import { AddressesComponent } from './addresses/addresses.component';
 
 
 
@@ -50,7 +56,13 @@ import { SearchComponent } from './search/search.component';
     AudioPlayerComponent,
     RecordComponent,
     WishlistComponent,
-    SearchComponent
+    SearchComponent,
+    ArtistDetailsComponent,
+    DiscographyComponent,
+    LabelDetailsComponent,
+    FollowedArtistsComponent,
+    FollowedLabelsComponent,
+    AddressesComponent
   ],
   imports: [
     BrowserModule,

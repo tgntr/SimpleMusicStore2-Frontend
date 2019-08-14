@@ -13,7 +13,7 @@
   <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
   <div *ngIf="record">
     <div class="card" style="width: 25rem;">
-      <img class="card-img-top" [src]="record.images[0].uri">
+      <img class="card-img-top" [src]="record.images[0].uri" class="rounded">
       <div class="card-body">
         <h5 class="card-title">{{record.title}}</h5>
         <hr>

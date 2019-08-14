@@ -25,15 +25,18 @@ export class RecordDetailsComponent extends BaseComponent implements OnInit {
         catchError(error => this.router.navigate(['/'])))
       .subscribe(record => {
         this.record = record;
-        console.log(record);
       });
   }
 
   addToWishlist() {
-    this.recordService.addToWishlist(this.record.id).pipe(takeUntil(this.unsubscribe)).subscribe(()=>this.record.isInWishlist=true);
+    this.recordService.addToWishlist(this.record.id)
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(()=>this.record.isInWishlist=true);
   }
   
   removeFromWishlist() {
-    this.recordService.removeFromWishlist(this.record.id).pipe(takeUntil(this.unsubscribe)).subscribe(()=>this.record.isInWishlist=false);
+    this.recordService.removeFromWishlist(this.record.id)
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(()=>this.record.isInWishlist=false);
   }
 }

@@ -1,0 +1,10 @@
+<div class="row">
+        <div *ngFor="let artist of followedArtists; let i=index" class="col-md-2">
+            <a [routerLink]="['/artist', artist.id]" [title]="artist.name">
+                <img [src]="artist.image" height="160px" width="160px" class="rounded" style="object-fit: cover;">
+                <div class="text-truncate text-dark font-weight-bold" >{{artist.name}}</div>
+            </a>
+            <td><button class="btn btn-dark" (click)="unfollow(i)">Unfollow</button></td>
+            <br>
+        </div>
+    </div>

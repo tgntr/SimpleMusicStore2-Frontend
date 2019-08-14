@@ -1,0 +1,54 @@
+<div *ngIf="!newAddressForm">
+    <button class="btn btn-dark" (click)="openNewAddressForm()"><i class="fas fa-plus"></i> New address</button>
+    <br>
+    <br>
+</div>
+<form *ngIf="newAddressForm" [formGroup]="newAddressForm">
+    <div class="form-row">
+        <div class="col-md-2 m-1">
+            <input type="text" class="form-control" placeholder="Country" formControlName="country"
+                [ngClass]="{ 'is-invalid': newAddressForm.get('country').errors && submitted }">
+            <div *ngIf="submitted" class="invalid-feedback">
+                <div class="text-danger">Country is required</div>
+            </div>
+        </div>
+        <div class="col-md-2 m-1">
+            <input type="text" class="form-control" placeholder="City" formControlName="city"
+                [ngClass]="{ 'is-invalid': newAddressForm.get('city').errors && submitted }">
+            <div *ngIf="submitted" class="invalid-feedback">
+                <div class="text-danger">City is required</div>
+            </div>
+        </div>
+        <div class="col-md-6 m-1">
+            <input type="text" class="form-control" placeholder="Street" formControlName="street"
+                [ngClass]="{ 'is-invalid': newAddressForm.get('street').errors && submitted }">
+            <div *ngIf="submitted" class="invalid-feedback">
+                <div class="text-danger">Street is required</div>
+            </div>
+        </div>
+        <div class="col m-1">
+            <button class="btn btn-dark" (click)="addNewAddress()">Add</button>&nbsp;&nbsp;
+            <button class="btn btn-dark" (click)="closeNewAddressForm()">Close</button>
+
+        </div>
+    </div>
+    <br>
+    <hr>
+    <br>
+</form>
+<div class="row">
+
+    <div class="col-md-2 m-2 p-2 card" *ngFor="let address of addresses, let i=index">
+        <div class="text-truncate" [title]="address.street">
+            {{address.street}}
+        </div>
+        <div class="text-truncate" [title]="address.city">
+            {{address.city}}
+        </div>
+        <div class="text-truncate" [title]="address.country">
+            {{address.country}}
+        </div>
+        <br>
+        <button class="btn btn-dark" (click)="remove(i)">Remove</button>
+    </div>
+</div>

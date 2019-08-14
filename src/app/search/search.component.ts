@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { SearchService } from '../_services/search.service';
 import { BaseComponent } from '../_helpers/base.component';
 import { debounceTime, map, takeUntil, distinctUntilChanged, switchMap, filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -16,7 +17,7 @@ export class SearchComponent extends BaseComponent implements OnInit {
   searchForm: FormGroup;
   loading = false;
 
-  constructor(private formBuilder: FormBuilder, private searchService: SearchService) {
+  constructor(private formBuilder: FormBuilder, private searchService: SearchService, private router: Router) {
     super();
     this.searchForm = this.formBuilder.group({
       searchTerm: ['']
@@ -38,11 +39,17 @@ export class SearchComponent extends BaseComponent implements OnInit {
           return term;
         }),
         switchMap(term => this.searchService.search(term.trim())))
+      .pipe(takeUntil(this.unsubscribe))  
       .subscribe(result => {
         this.results = result;
         this.loading = false;
       })
   };
 
-
+  redirectToDetailsView(result: SearchResult) {
+    this.searchForm.controls.searchTerm.setValue('');
+    this.results = [];
+    this.router.navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate([`/${result.contentType.toLowerCase()}/${result.id}`]));
+  }
 }

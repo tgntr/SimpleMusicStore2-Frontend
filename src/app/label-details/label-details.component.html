@@ -1,0 +1,14 @@
+<div *ngIf="label">
+        <div class="row no-gutters">
+            <div class="col-md-2">
+                <img [src]="label.image" width="170px" height="170px"class="rounded" style="object-fit: cover;">
+            </div>
+            <div class="col">
+                <h2>{{label.name}}</h2>
+                <button *ngIf="!label.isFollowed" class="btn btn-dark" (click)="addToWishlist()">Follow</button>
+                <button *ngIf="label.isFollowed" class="btn btn-dark" (click)="removeFromWishlist()">Unfollow</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <app-discography [records]="label.records"></app-discography>

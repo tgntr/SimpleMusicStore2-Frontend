@@ -16,7 +16,7 @@
         <div *ngFor="let result of results; let i = index">
             <button ngbDropdownItem (click)="redirectToDetailsView(result)">
                 <div class="row mx-auto align-items-center">
-                    <img [src]="result.image" style="width: 25%">
+                    <img [src]="result.image" style="width: 25%" class="rounded">
                     <div class="col col-md-9 text-truncate">
                         <div class="font-weight-bold" [title]="result.name">
                             {{ (result.name.length>15)? (result.name | slice:0:15)+'..':(result.name) }}

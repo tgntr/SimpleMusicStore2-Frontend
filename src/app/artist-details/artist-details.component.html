@@ -1,0 +1,14 @@
+<div *ngIf="artist">
+    <div class="row no-gutters">
+        <div class="col-md-2">
+            <img [src]="artist.image" width="170px" height="170px" style="object-fit: cover;" class="rounded">
+        </div>
+        <div class="col">
+            <h2>{{artist.name}}</h2>
+            <button *ngIf="!artist.isFollowed" class="btn btn-dark" (click)="addToWishlist()">Follow</button>
+            <button *ngIf="artist.isFollowed" class="btn btn-dark" (click)="removeFromWishlist()">Unfollow</button>
+        </div>
+    </div>
+</div>
+<br>
+<app-discography [records]="artist.records"></app-discography>

@@ -9,6 +9,4 @@ export class RecordDetails {
     label: LabelDetails;
     artist: ArtistDetails;
     price: number;
-    //popularity: number;
-    //dateAdded: Date;
 }

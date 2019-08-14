@@ -1,7 +1,11 @@
 <a [routerLink]="['/record', record.id]" [title]="record.title">
-    <img [src]="record.image" [attr.width]="width">
-    <div class="text-truncate font-weight-bold text-dark" >{{record.title}}</div>
+    <img [src]="record.image" [attr.width]="width"  class="rounded">
+    <div class="text-truncate font-weight-bold text-dark">{{record.title}}</div>
 </a>
-<div class="text-truncate font-weight-normal" [title]="record.artist.name">{{record.artist.name}}</div>
-<div class="text-truncate font-italic" [title]="record.label.name">{{record.label.name}}</div>
+<a [routerLink]="['/artist', record.artist.id]">
+    <div class="text-truncate font-weight-normal text-dark" [title]="record.artist.name">{{record.artist.name}}</div>
+</a>
+<a [routerLink]="['/label', record.label.id]">
+    <div class="text-truncate font-italic text-dark" [title]="record.label.name">{{record.label.name}}</div>
+</a>
 <app-add-to-cart [record]="record"></app-add-to-cart>
