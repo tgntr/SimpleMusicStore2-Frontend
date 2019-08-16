@@ -3,13 +3,14 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable } from 'rxjs';
 import { AuthService } from 'angularx-social-login';
 import { AuthenticationService } from '../_services/authentication.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-    constructor() { }
+    constructor(private cookies: CookieService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        let token = localStorage.getItem('token');
+        let token = this.cookies.get('token');
         if (token) {
             request = request.clone({
                 setHeaders: {

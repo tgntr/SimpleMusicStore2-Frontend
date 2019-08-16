@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -35,6 +34,8 @@ import { LabelDetailsComponent } from './label-details/label-details.component';
 import { FollowedArtistsComponent } from './followed-artists/followed-artists.component';
 import { FollowedLabelsComponent } from './followed-labels/followed-labels.component';
 import { AddressesComponent } from './addresses/addresses.component';
+import { CookieService } from 'ngx-cookie-service';
+
 
 
 
@@ -81,7 +82,8 @@ import { AddressesComponent } from './addresses/addresses.component';
     },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    DatePipe
+    DatePipe,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

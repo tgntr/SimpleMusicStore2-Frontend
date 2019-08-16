@@ -3,31 +3,32 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { AuthService, SocialUser, GoogleLoginProvider } from 'angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(localStorage.getItem('token') !== null);
-    public userEmail: BehaviorSubject<string> = new BehaviorSubject<string>(localStorage.getItem('email'));
+    private isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.cookies.get('token') !== null);
+    public userEmail: BehaviorSubject<string> = new BehaviorSubject<string>(this.cookies.get('email'));
     public isAuthenticated$ = this.isAuthenticated.asObservable();
     public userEmail$ = this.userEmail.asObservable();
     public currentUser: SocialUser
 
-    constructor(private authService: AuthService, private http: HttpClient) {
-     }
+    constructor(private authService: AuthService, private http: HttpClient, private cookies: CookieService) {
+    }
 
-    async authenticateWithGoogle(): Promise<any> { 
-        return this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(async (user)=>  {
-            
-            localStorage.setItem('token', user.idToken);
-            localStorage.setItem('email', user.email);
+    async authenticateWithGoogle(): Promise<any> {
+        return this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(async (user) => {
+
+            this.cookies.set('token', user.idToken);
+            this.cookies.set('email', user.email);
             this.userEmail.next(user.email);
-            await this.http.get(`${environment.url}/auth/login`).toPromise().then(()=>this.isAuthenticated.next(true));
+            await this.http.get(`${environment.url}/auth/login`).toPromise().then(() => this.isAuthenticated.next(true));
         })
     }
 
     signOut() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('email');
+        this.cookies.delete('token');
+        this.cookies.delete('email');
         this.isAuthenticated.next(false);
         this.userEmail.next(null);
     }
