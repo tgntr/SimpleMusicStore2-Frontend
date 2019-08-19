@@ -45,6 +45,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.loading = true;
     this.recordService.extractRecordInformation(this.discogsUrl).pipe(takeUntil(this.unsubscribe)).subscribe(recordInfo => {
       this.record = recordInfo;
+      this.record.tracklist = this.record.tracklist.filter(t=>t.title);
       this.record.price = null;
       this.record.quantity = null;
       this.addTrackPreviewsForm();

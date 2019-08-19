@@ -15,8 +15,8 @@ export class BrowseService {
         return this.http.get<Browse>(`${environment.url}/record/browse`);
     }
 
-    getRecords(filterCriterias: FilterCriterias): Observable<RecordDetails[]> {
-        return this.http.post<RecordDetails[]>(`${environment.url}/record/filter`, filterCriterias);
+    getRecords(page: number, filterCriterias: FilterCriterias): Observable<RecordDetails[]> {
+        return this.http.post<RecordDetails[]>(`${environment.url}/record/filter?page=${page}`, filterCriterias);
     }
 
 }

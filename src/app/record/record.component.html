@@ -1,5 +1,5 @@
 <a [routerLink]="['/record', record.id]" [title]="record.title">
-    <img [src]="record.image" [attr.width]="width"  class="rounded">
+    <img [src]="record.image" [attr.height]="size" [attr.width]="size" class="rounded" style="object-fit: cover;">
     <div class="text-truncate font-weight-bold text-dark">{{record.title}}</div>
 </a>
 <a [routerLink]="['/artist', record.artist.id]">

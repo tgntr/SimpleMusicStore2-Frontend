@@ -9,7 +9,7 @@ import { RecordDetails } from '../_models/recordDetails';
 export class RecordComponent implements OnInit {
 
   @Input() record: RecordDetails;
-  @Input() width;
+  @Input() size;
   constructor() { }
 
   ngOnInit() {

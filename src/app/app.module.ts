@@ -35,9 +35,7 @@ import { FollowedArtistsComponent } from './followed-artists/followed-artists.co
 import { FollowedLabelsComponent } from './followed-labels/followed-labels.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import { CookieService } from 'ngx-cookie-service';
-
-
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -73,7 +71,9 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    NgxAudioPlayerModule,BrowserAnimationsModule
+    NgxAudioPlayerModule,
+    BrowserAnimationsModule,
+    InfiniteScrollModule
   ],
   providers: [
     {

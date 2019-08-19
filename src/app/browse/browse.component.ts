@@ -16,15 +16,15 @@ export class BrowseComponent extends BaseComponent implements OnInit {
   browseOptions: Browse;
   filters: FilterCriterias = new FilterCriterias();
   records: RecordDetails[];
+  page: number = 1;
 
   constructor(private browseService: BrowseService) { super(); }
 
   ngOnInit() {
     this.browseService.getBrowseOptions().pipe(takeUntil(this.unsubscribe)).subscribe(browse=> {
       this.browseOptions = browse;
-      console.log(browse);
     });
-    this.browseService.getRecords(this.filters).pipe(takeUntil(this.unsubscribe)).subscribe(records=> {
+    this.browseService.getRecords(this.page,this.filters).pipe(takeUntil(this.unsubscribe)).subscribe(records=> {
       this.records = records;
     });
   }
@@ -46,8 +46,16 @@ export class BrowseComponent extends BaseComponent implements OnInit {
   }
 
   onSubmit() {
-    this.browseService.getRecords(this.filters).pipe(takeUntil(this.unsubscribe)).subscribe(records=> {
+    this.page = 1;
+    this.browseService.getRecords(this.page,this.filters).pipe(takeUntil(this.unsubscribe)).subscribe(records=> {
       this.records = records;
+    });
+  }
+
+  onScroll() {
+    this.page ++;
+    this.browseService.getRecords(this.page,this.filters).pipe(takeUntil(this.unsubscribe)).subscribe(records=> {
+      this.records = this.records.concat(records);
     })
   }
 }

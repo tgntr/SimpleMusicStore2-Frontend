@@ -6,7 +6,7 @@
         </div>
         <div class="card-body row">
             <div *ngFor="let record of newsfeed.recommended" class="col-md-2" alt="asdad">
-                <app-record [record]="record" [width]="'100%'"></app-record>
+                <app-record [record]="record" [size]="'160px'"></app-record>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
         </div>
         <div class="card-body row">
             <div *ngFor="let record of newsfeed.mostPopular" class="col-md-2">
-                <app-record [record]="record" [width]="'100%'"></app-record>
+                <app-record [record]="record" [size]="'160px'"></app-record>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
         </div>
         <div class="card-body row">
             <div *ngFor="let record of newsfeed.newest" class="col-md-2" alt="asdad">
-                <app-record [record]="record" [width]="'100%'"></app-record>
+                <app-record [record]="record" [size]="'160px'"></app-record>
             </div>
         </div>
     </div>

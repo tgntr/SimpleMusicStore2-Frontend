@@ -35,13 +35,19 @@
     <button class="btn btn-dark" (click)="onSubmit()">Filter</button>
   </div>
   <div class="col-md-10">
-    <div class="row">
+    <div class="row" infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle]="30"
+    (scrolled)="onScroll()">
       <div *ngFor="let record of records" class="col-md-2">
-        <app-record [record]="record" [width]="'100%'"></app-record>
+        <app-record [record]="record" [size]="'130px'"></app-record>
         <br>
         <br>
         <br>
+        
       </div>
+      
+
     </div>
   </div>
 </div>
