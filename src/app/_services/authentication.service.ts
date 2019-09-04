@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthService, SocialUser, GoogleLoginProvider } from 'angularx-social-login';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.cookies.get('token') !== null);
+    private isAuthenticated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.cookies.get('token') !== '');
     public userEmail: BehaviorSubject<string> = new BehaviorSubject<string>(this.cookies.get('email'));
     public isAuthenticated$ = this.isAuthenticated.asObservable();
     public userEmail$ = this.userEmail.asObservable();

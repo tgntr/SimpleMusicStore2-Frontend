@@ -18,7 +18,6 @@ const routes: Routes = [
   { path: '', component: NewsfeedComponent },
   { path: 'auth', component: AuthComponent, canActivate: [NotAuthenticated] },
   { path: 'add-record', component: AddRecordComponent, canActivate: [AuthGuard] },
-  { path: 'shopping-cart', component: ShoppingCartComponent, canActivate: [AuthGuard] },
   { path: 'order', component: OrderComponent },
   { path: 'my-profile', component: MyProfileComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },

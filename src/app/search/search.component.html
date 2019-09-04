@@ -1,16 +1,11 @@
-<div ngbDropdown class="d-inline-block">
-    <div [formGroup]="searchForm" class="input-group open" id="dropdownBasic1" ngbDropdownToggle>
+<div ngbDropdown class="d-inline-block"> 
+    <div [formGroup]="searchForm" class="input-group" id="dropdownBasic1" ngbDropdownToggle>
         <div class="input-group-prepend">
             <span class="input-group-text"><i class="fas fa-search text-black" aria-hidden="true"></i></span>
         </div>
         <input class="form-control my-0 py-1 md-6" type="text" placeholder="Search" formControlName="searchTerm">
     </div>
-
-    <div *ngIf="results.length===0 && loading" ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <div class="spinner-border spinner-border-sm"></div>
-    </div>
-
-    <div *ngIf="results.length>0 d-flex" style="background-color: rgb(243, 243, 243, 1)" ngbDropdownMenu open="true"
+    <div *ngIf="results.length>0" style="background-color: rgb(243, 243, 243, 1)" ngbDropdownMenu
         aria-labelledby="dropdownBasic1">
         <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
         <div *ngFor="let result of results; let i = index">

@@ -28,8 +28,8 @@
                         <div>Format:</div>
                     </div>
                     <div class="col-md-9 font-weight-bold">
-                        <div>{{record.artist.name}}</div>
-                        <div>{{record.label.name}}</div>
+                        <div><a [routerLink]="['/artist', record.artist.id]" class="text-dark">{{record.artist.name}}</a></div>
+                        <div><a [routerLink]="['/label', record.label.id]" class="text-dark">{{record.label.name}}</a></div>
                         <div>{{record.year}}</div>
                         <div>{{record.genre}}</div>
                         <div>{{record.format}}</div>
