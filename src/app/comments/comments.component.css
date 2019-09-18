@@ -1,0 +1,63 @@
+.btn.btn-dark{
+    margin-top:2%;
+    margin-bottom: 2%;
+}
+
+.comment-box{
+    margin-top: 5%;
+    border-color: rgb(231, 231, 231);
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-left-width: 4px;
+    padding: 3%;
+}
+
+.dateCreated{
+    float: right;
+    font-size: 14px;
+}
+.Author{
+    float: left;
+    
+    font-size: 14px;
+}
+.btn-link{
+    color: black;
+    font-size: 13px;
+}
+
+.btn-container{
+    position: relative;
+}
+.edit{
+   position: absolute;
+   left: -3%;
+   margin-top: 3%; 
+}
+
+.delete{
+    position: absolute;
+    left: 2%;
+    margin-top: 3%;
+}
+.editMode{
+    position: relative;
+    border: none;
+    width: 80%;
+    background-color: #f7f7f8;
+
+}
+
+.save{
+    position: absolute;
+    left: -3%;
+    margin-top: 14%;
+}
+
+.cancel{
+    position: absolute;
+    left: 2%;
+    margin-top: 14%; 
+}
+
