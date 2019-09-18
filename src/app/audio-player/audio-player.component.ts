@@ -21,7 +21,6 @@ export class AudioPlayerComponent implements OnInit {
 
   ngOnInit() {
     if (this.tracks) {
-      console.log(this.tracks);
     this.tracks.forEach((track, index) => {
       let trackPreview = new Track();
       trackPreview.link = track.preview;

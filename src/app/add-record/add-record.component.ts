@@ -87,10 +87,8 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.recordService.addRecord(this.record).pipe(takeUntil(this.unsubscribe)).subscribe(()=> {
       this.uploadTrackPreviews();
       
-    })
+    });
     //todo redirect to record page after u make the component
-    
-
   }
 
   uploadTrackPreviews(): void {

@@ -24,7 +24,7 @@ export class RecordDetailsComponent extends BaseComponent implements OnInit {
         takeUntil(this.unsubscribe),
         catchError(error => this.router.navigate(['/'])))
       .subscribe(record => {
-        this.record = record;
+        this.record = record;       
       });
   }
 
