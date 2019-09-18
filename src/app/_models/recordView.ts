@@ -1,6 +1,7 @@
 import { ArtistDetails } from './artistDetails';
 import { LabelDetails } from './labelDetails';
 import { TrackDetails } from './trackDetails';
+import { CommentView } from './comment-view';
 
 export class RecordView {
     title: string;
@@ -13,4 +14,5 @@ export class RecordView {
     price: number;
     format: string;
     isInWishlist: boolean;
+    comments: CommentView[];
 }
