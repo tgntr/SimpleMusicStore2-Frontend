@@ -5,7 +5,7 @@
             <li class="nav-item">
                 <button class="btn btn-dark text-uppercase" [routerLink]="['/browse']">Browse</button>
             </li>
-            <li *ngIf="isAuthenticated" class="nav-item">
+            <li *ngIf="isAdmin" class="nav-item">
                 <button class="btn btn-dark text-uppercase" [routerLink]="['/add-record']">Add record</button>
             </li>
         </ul>

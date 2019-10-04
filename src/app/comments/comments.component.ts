@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-comments',
@@ -45,20 +44,12 @@ export class CommentsComponent extends BaseComponent implements OnInit {
   }
 
   private isAuthor() {
-    this.getUserId();
+    this.userId = this.cookies.get('id');
     for(let comment of this.comments){
         if(comment.userId === this.userId){
             comment.isAuthor = true;
         }
     }
-  }
-
-
-  private getUserId() {
-    var token = this.cookies.get('token');
-    const helper = new JwtHelperService();
-    this.decodedToken = helper.decodeToken(token);
-    this.userId = this.decodedToken.sub;
   }
 
   onSubmit(comment: NewComment){

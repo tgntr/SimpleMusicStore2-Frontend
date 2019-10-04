@@ -13,11 +13,12 @@ import { BrowseComponent } from './browse/browse.component';
 import { RecordDetailsComponent } from './record-details/record-details.component';
 import { ArtistDetailsComponent } from './artist-details/artist-details.component';
 import { LabelDetailsComponent } from './label-details/label-details.component';
+import { AdminGuard } from './_helpers/admin-guard';
 
 const routes: Routes = [
   { path: '', component: NewsfeedComponent },
   { path: 'auth', component: AuthComponent, canActivate: [NotAuthenticated] },
-  { path: 'add-record', component: AddRecordComponent, canActivate: [AuthGuard] },
+  { path: 'add-record', component: AddRecordComponent, canActivate: [AdminGuard] },
   { path: 'order', component: OrderComponent },
   { path: 'my-profile', component: MyProfileComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent },
