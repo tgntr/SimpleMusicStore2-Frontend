@@ -40,6 +40,7 @@ export class AuthenticationService {
     }
 
     signOut() {
+        debugger;
         this.cookies.delete('token');
         this.cookies.delete('email');
         this.cookies.delete('id');

@@ -1,6 +1,6 @@
 
 export class NewComment {
-    userId: string;
+    userId: number;
     text: string;
     recordId: number;
 }

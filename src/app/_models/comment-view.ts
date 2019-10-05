@@ -2,7 +2,7 @@ export class CommentView {
     id: number;
     text: string;
     byUser: string;
-    userId:string;
+    userId:number;
     dateView: string;
     date: Date;
     isAuthor: boolean;

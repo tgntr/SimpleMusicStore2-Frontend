@@ -9,7 +9,7 @@
                 <div class="comment" *ngIf="!comment.isEditMode"> {{comment.text}} </div>
                 <div *ngIf="comment.isEditMode" class="editMode">
                         <input class="alert alert-secondary editMode" [(ngModel)]="commentToEdit.text" />
-                        <button class="btn btn-link save" (click)="SaveChanges(commentToEdit.text)">SAVE</button>
+                        <button class="btn btn-link save" (click)="saveChanges()">SAVE</button>
                         <button class="btn btn-link cancel" (click)="quitEditMode(comment)">CANCEL</button>
                 </div>
                 <br>

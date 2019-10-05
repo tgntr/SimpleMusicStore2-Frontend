@@ -22,81 +22,79 @@ export class CommentsComponent extends BaseComponent implements OnInit {
   newComment: NewComment = new NewComment();
   commentToEdit: EditComment = new EditComment();
   commentForm: FormGroup;
-  recordId: string;
-  userId:string;
-  decodedToken:any;
+  recordId: number;
+  userId: number;
+  decodedToken: any;
 
 
-  constructor(private commentService: CommentService, formBuilder: FormBuilder, private router:ActivatedRoute, private cookies: CookieService) {
-     super();
+  constructor(private commentService: CommentService, formBuilder: FormBuilder, private router: ActivatedRoute, private cookies: CookieService) {
+    super();
     this.commentForm = formBuilder.group({
       '_text': ['', Validators.required]
-     });
-    
-    }
+    });
+
+  }
 
   ngOnInit() {
-      this.comments.reverse();
-      this.formatDateOfComment();
-      this.isAuthor();
-      this.recordId = this.router.snapshot.paramMap.get('id');
-      
+    this.formatDateOfComment();
+    this.isAuthor();
+    this.recordId = +this.router.snapshot.paramMap.get('id');
+
   }
 
   private isAuthor() {
-    this.userId = this.cookies.get('id');
-    for(let comment of this.comments){
-        if(comment.userId === this.userId){
-            comment.isAuthor = true;
-        }
+    this.userId = +this.cookies.get('id');
+    for (let comment of this.comments) {
+      if (comment.userId === this.userId) {
+        comment.isAuthor = true;
+      }
     }
   }
 
-  onSubmit(comment: NewComment){
-      comment.recordId = +this.recordId;      
-      this.commentService.addComment(comment).pipe(takeUntil(this.unsubscribe)).subscribe((comment) => {
-        comment.isEditMode = false;
-        this.comments.reverse();
-        this.comments.push(comment);
+  onSubmit(comment: NewComment) {
+    comment.recordId = +this.recordId;
+    this.commentService.addComment(comment).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+      this.commentService.getComments(this.recordId).pipe(takeUntil(this.unsubscribe)).subscribe(comments => {
+        this.comments = comments;
         this.formatDateOfComment();
+        this.isAuthor();
         this.commentForm.reset();
-        this.comments.reverse();
-      }, (err) => {
-        console.log(err);
-      });
-      
+      })
+    }, (err) => {
+      console.log(err);
+    });
+
   }
 
-  deleteComment(id: number){
+  deleteComment(id: number) {
     this.commentService.deleteComment(id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       var current = this.comments.findIndex(comment => comment.id === id);
-      this.comments.splice(current, 1);  
+      this.comments.splice(current, 1);
     });
   }
 
-  private formatDateOfComment(){
-      for(let comment of this.comments){
-        var pipe = new DatePipe('en-US');
-        comment.dateView = pipe.transform(comment.date, 'short');
-      }
+  private formatDateOfComment() {
+    for (let comment of this.comments) {
+      var pipe = new DatePipe('en-US');
+      comment.dateView = pipe.transform(comment.date, 'short');
+    }
   }
 
-  public enableEditMode(comment:CommentView): void{
+  public enableEditMode(comment: CommentView): void {
     comment.isEditMode = true;
     this.commentToEdit.text = comment.text;
     this.commentToEdit.id = comment.id;
     this.commentToEdit.userId = this.userId;
   }
 
-  public quitEditMode(comment:CommentView){
+  public quitEditMode(comment: CommentView) {
     comment.isEditMode = false;
   }
 
-  public SaveChanges(text:string){
-      this.commentToEdit.text = text;     
-      this.commentService.editComment(this.commentToEdit).pipe(takeUntil(this.unsubscribe)).subscribe((comment) => {
-      var edited = this.comments.find(c => c.id == comment.id);
-      edited.text = comment.text;
+  public saveChanges() {
+    this.commentService.editComment(this.commentToEdit).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+      var edited = this.comments.find(c => c.id == this.commentToEdit.id);
+      edited.text = this.commentToEdit.text;
       edited.isEditMode = false;
     });
   }

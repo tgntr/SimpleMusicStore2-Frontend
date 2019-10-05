@@ -13,19 +13,19 @@ export class CommentService {
     }
 
     public getComments(recordId: number): Observable<CommentView[]>{
-        return this.http.get<CommentView[]>(`${environment.url}/comments/all/${recordId}`);
+        return this.http.get<CommentView[]>(`${environment.url}/comment/findall?recordId=${recordId}`);
     }
 
-    public addComment(comment: NewComment): Observable<CommentView>{
-        return this.http.post<CommentView>(`${environment.url}/comments/add`, comment);
+    public addComment(comment: NewComment): Observable<any>{
+        return this.http.post(`${environment.url}/comment/add`, comment);
     }
 
-    public editComment(comment: EditComment): Observable<CommentView>{
-            return this.http.post<CommentView>(`${environment.url}/comments/edit`, comment);
+    public editComment(comment: EditComment): Observable<any>{
+            return this.http.post(`${environment.url}/comment/edit`, comment);
     }
 
     public deleteComment(id: number): Observable<any>{
-            return this.http.delete(`${environment.url}/comments/delete/${id}`);
+            return this.http.delete(`${environment.url}/comment/delete/${id}`);
     }
 }
 

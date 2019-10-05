@@ -1,5 +1,5 @@
 export class EditComment {
     id: number;
-    userId:string;
+    userId:number;
     text:string;
 }
