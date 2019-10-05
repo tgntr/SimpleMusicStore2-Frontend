@@ -60,7 +60,10 @@
               <div>Quantity is required</div>
             </div>
           </div>
-          <button class="btn btn-dark">Add</button>
+          <button class="btn btn-dark">
+            <span *ngIf="!loading">Add</span>
+            <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+          </button>
         </form>
       </div>
     </div>

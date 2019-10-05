@@ -27,19 +27,18 @@ export class SearchComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.searchForm.controls.searchTerm.valueChanges
       .pipe(
-        debounceTime(600),
+        debounceTime(520),
         distinctUntilChanged(),
         filter(term => {
           term = term.trim();
           if (!term) {
             this.results = [];
-          } else {
-            this.loading = true;
+            this.loading = false;
           }
           return term;
         }),
         switchMap(term => this.searchService.search(term.trim())))
-      .pipe(takeUntil(this.unsubscribe))  
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(result => {
         this.results = result;
         this.loading = false;

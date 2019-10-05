@@ -81,6 +81,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    this.loading = true;
     this.record.price = this.form.controls.price.value;
     this.record.quantity = this.form.controls.quantity.value;
     console.log(this.record);
