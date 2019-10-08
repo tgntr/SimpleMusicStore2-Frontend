@@ -17,14 +17,13 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CommentsComponent extends BaseComponent implements OnInit {
 
-  @Input()
   comments: CommentView[] = [];
   newComment: NewComment = new NewComment();
   commentToEdit: EditComment = new EditComment();
   commentForm: FormGroup;
   recordId: number;
   userId: number;
-  decodedToken: any;
+  page: number = 1;
 
 
   constructor(private commentService: CommentService, formBuilder: FormBuilder, private router: ActivatedRoute, private cookies: CookieService) {
@@ -32,19 +31,22 @@ export class CommentsComponent extends BaseComponent implements OnInit {
     this.commentForm = formBuilder.group({
       '_text': ['', Validators.required]
     });
-
+    this.recordId = +this.router.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
-    this.formatDateOfComment();
-    this.isAuthor();
-    this.recordId = +this.router.snapshot.paramMap.get('id');
+    this.commentService.getComments(this.recordId, this.page).pipe(takeUntil(this.unsubscribe)).subscribe(comments => {
+      this.formatDateOfComments(comments);
+      this.isAuthor(comments);
+      this.comments = comments;
+    });
+    
 
   }
 
-  private isAuthor() {
+  private isAuthor(comments: CommentView[]) {
     this.userId = +this.cookies.get('id');
-    for (let comment of this.comments) {
+    for (let comment of comments) {
       if (comment.userId === this.userId) {
         comment.isAuthor = true;
       }
@@ -54,14 +56,8 @@ export class CommentsComponent extends BaseComponent implements OnInit {
   onSubmit(comment: NewComment) {
     comment.recordId = +this.recordId;
     this.commentService.addComment(comment).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-      this.commentService.getComments(this.recordId).pipe(takeUntil(this.unsubscribe)).subscribe(comments => {
-        this.comments = comments;
-        this.formatDateOfComment();
-        this.isAuthor();
-        this.commentForm.reset();
-      })
-    }, (err) => {
-      console.log(err);
+      this.commentForm.reset();
+      this.ngOnInit();
     });
 
   }
@@ -73,8 +69,8 @@ export class CommentsComponent extends BaseComponent implements OnInit {
     });
   }
 
-  private formatDateOfComment() {
-    for (let comment of this.comments) {
+  private formatDateOfComments(comments: CommentView[]) {
+    for (let comment of comments) {
       var pipe = new DatePipe('en-US');
       comment.dateView = pipe.transform(comment.date, 'short');
     }
@@ -96,6 +92,17 @@ export class CommentsComponent extends BaseComponent implements OnInit {
       var edited = this.comments.find(c => c.id == this.commentToEdit.id);
       edited.text = this.commentToEdit.text;
       edited.isEditMode = false;
+    });
+  }
+
+  onScroll() {
+    this.page ++;
+    console.log(this.page);
+    this.comments = this.comments.concat(this.comments);
+    this.commentService.getComments(this.recordId, this.page).pipe(takeUntil(this.unsubscribe)).subscribe(comments => {
+      this.formatDateOfComments(comments);
+      this.isAuthor(comments);
+      this.comments = this.comments.concat(comments);
     });
   }
 }

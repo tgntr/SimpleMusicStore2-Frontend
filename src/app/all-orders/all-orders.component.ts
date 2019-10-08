@@ -12,10 +12,12 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AllOrdersComponent extends BaseComponent implements OnInit {
   orders: OrderDetails[];
+  page: number = 1;
   constructor(private orderService: OrderService, private datePipe: DatePipe) { super() }
 
   ngOnInit() {
-    this.orderService.getAllByUser().pipe(takeUntil(this.unsubscribe)).subscribe(orders => {
+    debugger;
+    this.orderService.getAllByUser(this.page).pipe(takeUntil(this.unsubscribe)).subscribe(orders => {
       this.orders = orders;
     });
   }
@@ -24,4 +26,10 @@ export class AllOrdersComponent extends BaseComponent implements OnInit {
     return this.datePipe.transform(date, 'MMMM d, y, h:mm:ss a')
   }
 
+  onScroll() {
+    this.page++;
+    this.orderService.getAllByUser(this.page).pipe(takeUntil(this.unsubscribe)).subscribe(orders => {
+      this.orders = this.orders.concat(orders);
+    });
+  }
 }

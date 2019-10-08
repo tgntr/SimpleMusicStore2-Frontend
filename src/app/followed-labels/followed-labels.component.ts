@@ -10,12 +10,13 @@ import { LabelService } from '../_services/label.service';
   styleUrls: ['./followed-labels.component.css']
 })
 export class FollowedLabelsComponent extends BaseComponent implements OnInit {
-  followedLabels: FollowDetails[]
+  followedLabels: FollowDetails[];
+  page: number = 1;
 
   constructor(private labelService: LabelService) { super() }
 
   ngOnInit() {
-    this.labelService.getFollowedLabels()
+    this.labelService.getFollowedLabels(this.page)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(followedLabels => this.followedLabels = followedLabels);
   }
@@ -26,4 +27,10 @@ export class FollowedLabelsComponent extends BaseComponent implements OnInit {
     })
   }
 
+  onScroll() {
+    this.page ++;
+    this.labelService.getFollowedLabels(this.page).pipe(takeUntil(this.unsubscribe)).subscribe(followedLabels=> {
+      this.followedLabels = this.followedLabels.concat(followedLabels);
+    })
+  }
 }

@@ -12,8 +12,8 @@ export class CommentService {
     constructor(private http: HttpClient){       
     }
 
-    public getComments(recordId: number): Observable<CommentView[]>{
-        return this.http.get<CommentView[]>(`${environment.url}/comment/findall?recordId=${recordId}`);
+    public getComments(recordId: number, page: number): Observable<CommentView[]>{
+        return this.http.get<CommentView[]>(`${environment.url}/comment/findall?recordId=${recordId}&page=${page}`);
     }
 
     public addComment(comment: NewComment): Observable<any>{

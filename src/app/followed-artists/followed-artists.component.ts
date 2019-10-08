@@ -10,12 +10,13 @@ import { FollowDetails } from '../_models/followDetails';
   styleUrls: ['./followed-artists.component.css']
 })
 export class FollowedArtistsComponent extends BaseComponent implements OnInit {
-  followedArtists: FollowDetails[]
+  followedArtists: FollowDetails[];
+  page:number = 1;
 
   constructor(private artistService: ArtistService) { super() }
 
   ngOnInit() {
-    this.artistService.getFollowedArtists()
+    this.artistService.getFollowedArtists(this.page)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(followedArtists => this.followedArtists = followedArtists);
   }
@@ -26,4 +27,10 @@ export class FollowedArtistsComponent extends BaseComponent implements OnInit {
     })
   }
 
+  onScroll() {
+    this.page ++;
+    this.artistService.getFollowedArtists(this.page).pipe(takeUntil(this.unsubscribe)).subscribe(followedArtists=> {
+      this.followedArtists = this.followedArtists.concat(followedArtists);
+    })
+  }
 }

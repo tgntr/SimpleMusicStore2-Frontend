@@ -16,8 +16,8 @@ export class ArtistService {
         return this.http.get<ArtistView>(`${environment.url}/artist/details/${id}`);
     }
 
-    getFollowedArtists(): Observable<FollowDetails[]> {
-        return this.http.get<FollowDetails[]>(`${environment.url}/activity/followedArtists`);
+    getFollowedArtists(page: number): Observable<FollowDetails[]> {
+        return this.http.get<FollowDetails[]>(`${environment.url}/activity/followedArtists?page=${page}`);
     }
 
     follow(id: number): Observable<any> {

@@ -18,8 +18,8 @@ export class LabelService {
         return this.http.get<LabelView>(`${environment.url}/follow/followLabel/${id}`);
     }
 
-    getFollowedLabels(): Observable<FollowDetails[]> {
-        return this.http.get<FollowDetails[]>(`${environment.url}/activity/followedLabels`);
+    getFollowedLabels(page:number): Observable<FollowDetails[]> {
+        return this.http.get<FollowDetails[]>(`${environment.url}/activity/followedLabels?page=${page}`);
     }
 
     unfollow(id: number): Observable<any> {

@@ -15,7 +15,7 @@ export class OrderService {
         return this.http.get<OrderView>(`${environment.url}/order/details/${id}`);
     }
 
-    getAllByUser() : Observable<OrderDetails[]>{
-        return this.http.get<OrderDetails[]>(`${environment.url}/activity/orders`);
+    getAllByUser(page: number) : Observable<OrderDetails[]>{
+        return this.http.get<OrderDetails[]>(`${environment.url}/activity/orders?page=${page}`);
     }
 }
