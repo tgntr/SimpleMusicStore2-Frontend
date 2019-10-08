@@ -25,7 +25,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     super();
     this.form = this.formBuilder.group({
       discogsUrl: ['', [Validators.required, Validators.pattern("https:\/\/www\.discogs\.com\/([^\/]+\/)?((release)|(master))\/[0-9]+([^\/]+)?")]],
-      price: ['', [Validators.required, Validators.min(1), Validators.pattern("[0-9]+")]],
+      price: ['', [Validators.required, Validators.min(1), Validators.pattern("[0-9]+(\.[0-9]+)?")]],
       quantity: ['', [Validators.required, Validators.min(1), Validators.pattern("[0-9]+")]],
       previews: this.formBuilder.array([])
     });
@@ -45,7 +45,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.loading = true;
     this.recordService.extractRecordInformation(this.discogsUrl).pipe(takeUntil(this.unsubscribe)).subscribe(recordInfo => {
       this.record = recordInfo;
-      this.record.tracklist = this.record.tracklist.filter(t=>t.title);
+      this.record.tracklist = this.record.tracklist.filter(t => t.title);
       this.record.price = null;
       this.record.quantity = null;
       this.addTrackPreviewsForm();
@@ -77,6 +77,7 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger;
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -85,9 +86,9 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.record.price = this.form.controls.price.value;
     this.record.quantity = this.form.controls.quantity.value;
     console.log(this.record);
-    this.recordService.addRecord(this.record).pipe(takeUntil(this.unsubscribe)).subscribe(()=> {
+    this.recordService.addRecord(this.record).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       this.uploadTrackPreviews();
-      
+
     });
     //todo redirect to record page after u make the component
   }
@@ -96,12 +97,15 @@ export class AddRecordComponent extends BaseComponent implements OnInit {
     this.previews.forEach((preview, index) => {
       let file = new FormData();
       file.append('file', preview);
-      this.recordService.upload(file, this.record.id+this.record.tracklist[index].title).pipe(takeUntil(this.unsubscribe)).subscribe(()=> this.router.navigate(['/']));
+      this.recordService.upload(file, this.record.id + this.record.tracklist[index].title)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe(() => this.router.navigate(['/record/' + this.record.id])
+        );
     });
   }
 
   appendTrackPreview(event, index) {
-    if (this.previewsFormControls.controls[index].invalid) { 
+    if (this.previewsFormControls.controls[index].invalid) {
       return;
     }
     let file = event.target.files[0];

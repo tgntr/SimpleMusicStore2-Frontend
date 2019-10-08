@@ -33,7 +33,8 @@ export class SearchComponent extends BaseComponent implements OnInit {
           term = term.trim();
           if (!term) {
             this.results = [];
-            this.loading = false;
+          } else {
+            this.loading = true;
           }
           return term;
         }),

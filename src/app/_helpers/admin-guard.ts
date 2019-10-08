@@ -7,6 +7,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class AdminGuard implements CanActivate {
     claimRole = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
     isAdmin:boolean = false;
+    
     constructor(
         private router: Router,
         private authService: AuthenticationService
